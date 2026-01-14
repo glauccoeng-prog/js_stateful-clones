@@ -42,7 +42,10 @@ function transformStateWithClones(initialState, actions) {
         break;
 
       default:
-        break;
+        throw new Error(
+          `Unknown action type: "${action.type}". ` +
+            'Expected: "clear" | "addProperties" | "removeProperties"',
+        );
     }
 
     // Armazena clone do estado atual no histórico
