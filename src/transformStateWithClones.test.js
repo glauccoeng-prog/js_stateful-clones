@@ -332,3 +332,21 @@ test('Should handle a long list of types', () => {
     another: 'one',
   });
 });
+
+test('Should throw an error for unknown action type', () => {
+  const state = { foo: 'bar' };
+
+  expect(() => {
+    transformStateWithClones(state, [
+      {
+        type: 'unknownType',
+      },
+    ]);
+  }).toThrow(
+    'Unknown action type: "unknownType". ' +
+      'Expected: "clear" | "addProperties" | "removeProperties"',
+  );
+
+  // Verify original state is not modified
+  expect(state).toEqual({ foo: 'bar' });
+});

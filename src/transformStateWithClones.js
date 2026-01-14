@@ -35,10 +35,14 @@ function transformStateWithClones(initialState, actions) {
         break;
 
       case 'removeProperties':
-        // Remove cada chave especificada em keysToRemove
-        action.keysToRemove.forEach((key) => {
-          delete currentState[key];
-        });
+        // Cria novo objeto excluindo as chaves especificadas
+        currentState = Object.keys(currentState).reduce((newState, key) => {
+          if (!action.keysToRemove.includes(key)) {
+            newState[key] = currentState[key];
+          }
+
+          return newState;
+        }, {});
         break;
 
       default:
